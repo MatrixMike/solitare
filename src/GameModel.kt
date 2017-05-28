@@ -18,11 +18,8 @@ object GameModel {
     }
 
     fun onDeckTap() {
-        if (deck.cardsInDeck.isNotEmpty()) {
-            val card = deck.drawCard()
-            card.faceUp = true
-            wastePile.add(card)
-        } else {
+        if (deck.cardsInDeck.isNotEmpty()) wastePile.add(deck.drawCard(setFaceUp = true))
+        else {
             deck.cardsInDeck = wastePile.toMutableList()
             wastePile.clear()
         }

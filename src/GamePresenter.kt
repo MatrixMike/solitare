@@ -1,6 +1,6 @@
 import kotlin.properties.Delegates
 
-class GamePresenter {
+object GamePresenter {
 
     var view: GameView by Delegates.notNull<GameView>()
 

@@ -8,10 +8,11 @@ class Deck {
     val cards = Array(52, { Card(getValue(it), getSuit(it)) })
     var cardsInDeck: MutableList<Card> = cards.toMutableList()
 
-    fun drawCard() = cardsInDeck.removeAt(0)
+    fun drawCard(setFaceUp: Boolean = false) = cardsInDeck.removeAt(0) faceUp setFaceUp
 
     fun reset() {
         cardsInDeck = cards.toMutableList()
+        cardsInDeck.forEach { it faceUp false }
         Collections.shuffle(cardsInDeck)
     }
 
