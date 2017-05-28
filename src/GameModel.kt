@@ -64,6 +64,16 @@ object GameModel {
     }
 
     fun printGamePlay() {
-        TODO("Print game play")
+        val pad = "   "
+        val blank = "___"
+        var firstLine = (if (wastePile.isNotEmpty()) "${wastePile.last()}" else blank).padEnd(18)
+        foundationPiles.forEach { firstLine += (if (it.isNotEmpty()) "${it.last()}" else blank) + pad }
+        println(firstLine)
+        println()
+        for (i in 0..12) {
+            var row = ""
+            tableauPiles.forEach { row += (if (it.cards.size > i) "${it.cards[i]}" else pad) + pad }
+            println(row)
+        }
     }
 }

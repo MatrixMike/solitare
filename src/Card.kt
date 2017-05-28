@@ -22,14 +22,13 @@ val DIAMONDS = "Diamonds"
  */
 data class Card(val value: Value, val suit: String, var faceUp: Boolean = false) {
 
-    val reds = arrayOf(HEARTS, DIAMONDS)
-    val blacks = arrayOf(CLUBS, SPADES)
+    fun isRed() = this.suit == HEARTS || this.suit == DIAMONDS
 
-    fun isRed() = reds.contains(suit)
+    fun isBlack() = this.suit == CLUBS || this.suit == SPADES
 
-    fun isBlack() = blacks.contains(suit)
+    infix fun faceUp(boolean: Boolean): Card = this.apply { faceUp = boolean }
 
-    override fun toString() = if (faceUp) "$value".padEnd(2) + "${getSuitCharacter(suit)})" else "xxx"
+    override fun toString() = if (faceUp) "$value".padEnd(2) + getSuitCharacter(suit) else "xxx"
 
     private fun getSuitCharacter(suit: String) = when (suit) {
         DIAMONDS -> "\u2666"
@@ -39,17 +38,12 @@ data class Card(val value: Value, val suit: String, var faceUp: Boolean = false)
         else -> throw IllegalArgumentException("No such a suit")
     }
 
-    infix fun faceUp(boolean: Boolean): Card = this.apply { faceUp = boolean }
-
     data class Value(val value: Int) {
         val valueNames = arrayOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
 
         infix fun of(suit: String) = Card(this, suit)
-
         operator fun plus(integer: Int) = value + integer
-
         operator fun minus(integer: Int) = Value(value - integer)
-
         override fun toString() = valueNames[value]
 
     }
