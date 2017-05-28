@@ -12,15 +12,15 @@ val THREE = Card.Value(2)
 val TWO = Card.Value(1)
 val ACE = Card.Value(0)
 
-val HEARTS = Card.Suit("hearts")
-val DIAMONDS = Card.Suit("diamonds")
-val SPADES = Card.Suit("spades")
-val CLUBS = Card.Suit("clubs")
+val CLUBS = "Clubs"
+val HEARTS = "Hearts"
+val SPADES = "Spades"
+val DIAMONDS = "Diamonds"
 
 /**
  * A model of a Solitaire card
  */
-data class Card(val value: Value, val suit: Suit, var faceUp: Boolean = false) {
+data class Card(val value: Value, val suit: String, var faceUp: Boolean = false) {
 
     val reds = arrayOf(HEARTS, DIAMONDS)
     val blacks = arrayOf(CLUBS, SPADES)
@@ -29,31 +29,28 @@ data class Card(val value: Value, val suit: Suit, var faceUp: Boolean = false) {
 
     fun isBlack() = blacks.contains(suit)
 
-    infix fun faceUp(boolean: Boolean) :Card {
-        this.faceUp = boolean
-        return this
+    override fun toString() = if (faceUp) "$value".padEnd(2) + "${getSuitCharacter(suit)})" else "xxx"
+
+    private fun getSuitCharacter(suit: String) = when (suit) {
+        DIAMONDS -> "\u2666"
+        CLUBS -> "\u2663"
+        HEARTS -> "\u2665"
+        SPADES -> "\u2660"
+        else -> throw IllegalArgumentException("No such a suit")
     }
 
-    class Suit(val suit: String) {
+    infix fun faceUp(boolean: Boolean): Card = this.apply { faceUp = boolean }
 
-        override operator fun equals(other: Any?) = if (other is Suit)
-            other.suit == suit else false
+    data class Value(val value: Int) {
+        val valueNames = arrayOf("A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K")
 
-        override fun hashCode() = suit.hashCode()
-    }
-
-    class Value(val value: Int) {
-
-        infix fun of(suit: Suit) = Card(this, suit)
+        infix fun of(suit: String) = Card(this, suit)
 
         operator fun plus(integer: Int) = value + integer
 
         operator fun minus(integer: Int) = Value(value - integer)
 
-        override operator fun equals(other: Any?) = if (other is Value)
-            other.value == value else false
-
-        override fun hashCode() = value.hashCode()
+        override fun toString() = valueNames[value]
 
     }
 }

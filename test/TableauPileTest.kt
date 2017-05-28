@@ -14,7 +14,7 @@ class TableauPileTest {
     @Test
     fun removeCard() {
         val tableauPile = TableauPile(mutableListOf(FIVE of DIAMONDS, FOUR of CLUBS, THREE of HEARTS))
-        tableauPile.removeCard(1)
+        tableauPile.removeCards(1)
         assertEquals(mutableListOf(FIVE of DIAMONDS faceUp true), tableauPile.cards)
     }
 

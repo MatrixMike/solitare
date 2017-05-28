@@ -1,4 +1,4 @@
-class FoundationPile(val suit: Card.Suit) {
+class FoundationPile(val suit: String) {
 
     val cards: MutableList<Card> = mutableListOf()
 
@@ -14,4 +14,8 @@ class FoundationPile(val suit: Card.Suit) {
 
         return false
     }
+
+    fun last() = cards.last()
+
+    fun isNotEmpty() = cards.isNotEmpty()
 }
