@@ -1,0 +1,3 @@
+in /src execute kotlinc *.kt
+ag -i main reveals Appkt holds main
+kotlin AppKt runs and draws card stacks
